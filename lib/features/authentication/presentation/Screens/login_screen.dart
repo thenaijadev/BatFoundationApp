@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
   bool? isValid = false;
 
-  bool obscureText = false;
+  bool obscureText = true;
   @override
   Widget build(BuildContext context) {
     final authBloc = context.watch<AuthBloc>();
@@ -61,7 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Align(alignment: Alignment.center,
+                    Align(
+                      alignment: Alignment.center,
                       child: Image.asset(
                         "assets/images/logo.png",
                         width: 70,
@@ -111,7 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         GestureDetector(
-                            onTap: ()=> Navigator.pushNamed(context, Routes.resetPassword),
+                            onTap: () => Navigator.pushNamed(
+                                context, Routes.resetPassword),
                             child: const TextWidget(
                               text: "Forgot password?",
                               color: Color.fromARGB(255, 0, 80, 146),
@@ -124,7 +126,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     BlocConsumer<AuthBloc, AuthState>(
                       listener: (context, state) {
                         if (state is AuthStateError) {
-                          FlushBar(context, state.errorMessage == "Login Failed" ? "Login Failed. Please check your username or password" : state.errorMessage,  "Error").showErrorBar;
+                          FlushBar(
+                                  context,
+                                  state.errorMessage == "Login Failed"
+                                      ? "Login Failed. Please check your username or password"
+                                      : state.errorMessage,
+                                  "Error")
+                              .showErrorBar;
                         } else if (state is AuthStateLoginSuccess) {
                           Navigator.pushNamed(context, Routes.home);
                         }
